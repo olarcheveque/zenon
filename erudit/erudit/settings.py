@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = (
     # Erudit apps
     'erudit',
+    'myspace',
     'editor',
     'subscription',
     'individual_subscription',

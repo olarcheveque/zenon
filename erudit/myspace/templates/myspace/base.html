@@ -84,17 +84,12 @@
 <main class="main">
   <header>
     <h1>
-      <span class="user-space">{% block zone-title %}{% trans "Espace éditeurs" %}{% endblock %}</span> {% block page-title %}{% endblock %}
+      <span class="user-space">{% block zone-title %}{% trans "Mon espace" %}{% endblock %}</span> {% block page-title %}{% endblock %}
     </h1>
   </header>
   <div class="container-fluid">
     <div class="breadcrumbs">
-      {% block breadcrumbs %}
-      {% url 'editor:dashboard' as dashboard %}
-      {% if request.get_full_path != dashboard %}
-      <a href="{% url 'editor:dashboard' %}">{% trans "Tableau de bord" %}</a>
-      {% endif %}
-      {% endblock %}
+      {% block breadcrumbs %}{% endblock %}
     </div>
     {% block content-main %}
     {% endblock %}
