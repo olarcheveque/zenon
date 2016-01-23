@@ -53,6 +53,7 @@ INSTALLED_APPS = (
     'plupload',
     'django_filters',
     'spurl',
+    'permissions',
 )
 
 DATABASES = {
