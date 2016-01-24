@@ -1,5 +1,7 @@
 from django.contrib import admin
 
+from rules.contrib.admin import ObjectPermissionsModelAdmin
+
 from erudit.models import (
     Person,
     Organisation,
@@ -33,7 +35,7 @@ class CommentAdmin(admin.ModelAdmin):
         obj.save()
 
 
-class JournalAdmin(admin.ModelAdmin):
+class JournalAdmin(ObjectPermissionsModelAdmin):
 
     search_fields = [
         'code', 'name', 'display_name', 'issn_print',
@@ -100,6 +102,12 @@ class JournalAdmin(admin.ModelAdmin):
             instance.author = request.user
             instance.save()
         formset.save_m2m()
+
+    def get_queryset(self, request):
+        qs = super(JournalAdmin, self).get_queryset(request)
+        # TODO centralize permission check filtering BUT db hit for each journal
+        ids = [j.id for j in qs if request.user.has_perm('erudit.change_journal', j)]
+        return qs.filter(id__in=ids)
 
 
 admin.site.register(Person)

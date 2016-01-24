@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'editor',
     'subscription',
     'individual_subscription',
+    'permissions',
     'grappelli',
     'post_office',
     # Other apps
@@ -53,7 +54,7 @@ INSTALLED_APPS = (
     'plupload',
     'django_filters',
     'spurl',
-    'permissions',
+    'rules.apps.AutodiscoverRulesConfig',
 )
 
 DATABASES = {
@@ -111,6 +112,11 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'rules.permissions.ObjectPermissionBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 LOGIN_URL = '/login/'
 

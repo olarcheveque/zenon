@@ -1,5 +1,5 @@
 {% extends "base_editor.html" %}
-{% load i18n staticfiles %}
+{% load i18n staticfiles rules %}
 
 {% block page-title %}{% trans "Tableau de bord" %}{% endblock %}
 
@@ -14,9 +14,12 @@
           {% url 'editor:issues' as all_issues %}
         </h2>
       </div>
+      {% has_perm 'editor.add_issuesubmission' request.user as can_add_issuesubmission %}
+      {% if can_add_issuesubmission %}
       <div class="text-right col-sm-6">
         <a href="{% url 'editor:add' %}" class="btn btn-primary">{% trans "Déposer un nouveau numéro" %}</a>
       </div>
+      {% endif %}
     </div>
     <div class="row card-body">
       <div class="col-xs-12">

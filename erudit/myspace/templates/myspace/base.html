@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n staticfiles %}
+{% load i18n staticfiles rules %}
 
 {% block header %}
 <header>
@@ -34,13 +34,19 @@
 {% endblock %}
 
 {% block nav %}
+
+{% has_perm 'editor.add_issuesubmission' request.user as can_add_issuesubmission %}
+{% has_perm 'editor.access_issuesubmission' request.user as can_access_issuesubmission %}
+
 <nav class="sidenav">
-  <ul>
+<ul>
+    {% if can_add_issuesubmission or can_access_issuesubmission %}
     <li>
       <a href="{% url 'editor:issues' %}" {% url 'editor:issues' as issues %}{% if request.get_full_path == issues %}class="active"{% endif %}>
         <span class="icon fa fa-folder-open-o"></span> <span class="sidenav-label">{% trans "Dépôt de numéros" %}</span>
       </a>
     </li>
+    {% endif %}
     <li>
       <a href="#" class="disabled">
         <span class="icon icon-epub"></span> <span class="sidenav-label">{% trans "Dépôt EPUB" %}</span>
